@@ -1,0 +1,2 @@
+VideoCapturePlus-PhoneGap-Plugin
+================================
