@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="nl.x-services.plugins.videocaptureplus"
+        version="0.1">
+
+  <name>VideoCapturePlus</name>
+
+  <description>
+    This plugin allows you to record video's just like the default Capture plugin,
+    but with added features like HD recording and a custom recording overlay.
+  </description>
+
+  <license>MIT</license>
+
+  <dependency id="org.apache.cordova.file" />
+
+  <engines>
+    <engine name="cordova" version=">=3.0.0"/>
+  </engines>
+
+  <js-module src="www/VideoCapturePlus.js" name="VideoCapturePlus">
+    <clobbers target="window.plugins.videocaptureplus" />
+  </js-module>
+
+  <!-- ios -->
+  <platform name="ios">
+
+    <config-file target="config.xml" parent="/*">
+      <feature name="VideoCapturePlus">
+        <param name="ios-package" value="VideoCapturePlus"/>
+      </feature>
+    </config-file>
+
+    <header-file src="src/ios/VideoCapturePlus.h"/>
+    <source-file src="src/ios/VideoCapturePlus.m"/>
+
+    <framework src="CoreGraphics.framework" />
+    <framework src="MobileCoreServices.framework" />
+  </platform>
+
+  <!-- android -->
+  <platform name="android">
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="VideoCapturePlus">
+        <param name="android-package" value="nl.xservices.plugins.VideoCapturePlus" />
+      </feature>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/*">
+      <uses-permission android:name="android.permission.RECORD_VIDEO"/>
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    </config-file>
+
+    <source-file src="src/android/nl/xservices/plugins/VideoCapturePlus.java" target-dir="src/nl/xservices/plugins" />
+    <!-- TODO required? -->
+    <source-file src="src/android/nl/xservices/plugins/FileHelper.java" target-dir="src/nl/xservices/plugins" />
+  </platform>
+
+</plugin>
