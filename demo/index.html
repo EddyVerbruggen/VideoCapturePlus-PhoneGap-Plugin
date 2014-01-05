@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+  <link rel="stylesheet" type="text/css" href="css/index.css"/>
+  <title>Hello VideoCapturePlus</title>
+</head>
+<body>
+<div class="app">
+  <h1>VideoCapturePlus</h1>
+  <div id="deviceready" class="blink">
+    <p class="event listening">Connecting to Device</p>
+    <p class="event received">Device is Ready</p>
+  </div>
+  <div id="pluginsDemoDiv">
+    <p>
+      <button onclick="videoCapturePlusDemo(false,false,2)">LQ back 2s</button>
+      <br/><br/>
+      <button onclick="videoCapturePlusDemo(true,false,3)">HQ back 3s</button>
+      <br/><br/>
+      <button onclick="videoCapturePlusDemo(false,true,4)">LQ front 4s</button>
+      <br/><br/>
+      <button onclick="videoCapturePlusDemo(true,true,5)">HQ front 5s</button>
+    </p>
+    <div id="video_meta_container"></div>
+    <div id="video_meta_container2"></div>
+    <div id="video_container"></div>
+  </div>
+</div>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/videocaptureplus-demo.js"></script>
+<script type="text/javascript">
+  app.initialize();
+</script>
+</body>
+</html>
