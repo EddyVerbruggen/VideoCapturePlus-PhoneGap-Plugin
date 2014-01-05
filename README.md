@@ -17,10 +17,10 @@ by [Eddy Verbruggen](http://www.x-services.nl/blog)
 ## 1. Description
 
 * This plugin offers some useful extras on top of the [default PhoneGap Video Capture capabilities](http://docs.phonegap.com/en/3.3.0/cordova_media_capture_capture.md.html#capture.captureVideo):
-  * HD recording
-  * Starting with the front camera
-  * A custom overlay (currently iOS only)
-* For PhoneGap 3.0.0 and up
+  * HD recording.
+  * Starting with the front camera.
+  * A custom overlay (currently iOS only).
+* For PhoneGap 3.0.0 and up.
 * Works on the same Android and iOS versions as the [original plugin](http://docs.phonegap.com/en/3.3.0/cordova_media_capture_capture.md.html#capture.captureVideo).
 * Compatible with [Cordova Plugman](https://github.com/apache/cordova-plugman).
 * Pending official support at [PhoneGap Build](https://build.phonegap.com/plugins).
@@ -94,11 +94,11 @@ For iOS, you'll need to add the `CoreGraphics.framework` and `MobileCoreServices
 
 iOS: Copy `VideoCapturePlus.h` and `VideoCapturePlus.m` to `platforms/ios/<ProjectName>/Plugins`
 
-Android: Copy `VideoCapturePlus.java` and `FileHelper.java` to `platforms/android/src/nl/xservices/plugins/videocaptureplus` (create the folders)
+Android: Copy `VideoCapturePlus.java` and `FileHelper.java` to `platforms/android/src/nl/xservices/plugins/videocaptureplus` (create the folders).
 
 ### PhoneGap Build
 
-VideoCapturePlus is pending approval at [PhoneGap Build](http://build.phonegap.com). Once it's approved, just add the following xml to your `config.xml` to always use the latest version of this plugin:
+VideoCapturePlus is pending approval at [PhoneGap Build](http://build.phonegap.com/plugins). Once it's approved, just add the following xml to your `config.xml` to always use the latest version of this plugin:
 ```xml
 <gap:plugin name="nl.x-services.plugins.videocaptureplus" />
 ```
