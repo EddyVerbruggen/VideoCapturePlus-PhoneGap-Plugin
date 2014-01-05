@@ -1,7 +1,11 @@
 #import "VideoCapturePlus.h"
 #import <UIKit/UIDevice.h>
 
-// see https://github.com/ednasgoldfishuk/cordova-plugin-media-capture/blob/master/src/ios/CDVCapture.h for full custom overlay
+#define kW3CMediaFormatHeight @"height"
+#define kW3CMediaFormatWidth @"width"
+#define kW3CMediaFormatCodecs @"codecs"
+#define kW3CMediaFormatBitrate @"bitrate"
+#define kW3CMediaFormatDuration @"duration"
 
 @implementation CDVImagePicker
 
@@ -260,6 +264,70 @@
     NSDictionary* fileDict = [self getMediaDictionaryFromPath:moviePath ofType:nil];
     NSArray* fileArray = [NSArray arrayWithObject:fileDict];
     return [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:fileArray];
+}
+
+- (void)getFormatData:(CDVInvokedUrlCommand*)command {
+    NSString* callbackId = command.callbackId;
+    // existence of fullPath checked on JS side
+    NSString* fullPath = [command.arguments objectAtIndex:0];
+    // mimeType could be null
+    NSString* mimeType = nil;
+
+    if ([command.arguments count] > 1) {
+        mimeType = [command.arguments objectAtIndex:1];
+    }
+    BOOL bError = NO;
+    CDVCaptureError errorCode = CAPTURE_INTERNAL_ERR;
+    CDVPluginResult* result = nil;
+
+    if (!mimeType || [mimeType isKindOfClass:[NSNull class]]) {
+        // try to determine mime type if not provided
+        id command = [self.commandDelegate getCommandInstance:@"File"];
+        bError = !([command isKindOfClass:[CDVFile class]]);
+        if (!bError) {
+            CDVFile* cdvFile = (CDVFile*)command;
+            mimeType = [cdvFile getMimeTypeFromPath:fullPath];
+            if (!mimeType) {
+                // can't do much without mimeType, return error
+                bError = YES;
+                errorCode = CAPTURE_INVALID_ARGUMENT;
+            }
+        }
+    }
+    if (!bError) {
+        // create and initialize return dictionary
+        NSMutableDictionary* formatData = [NSMutableDictionary dictionaryWithCapacity:5];
+        [formatData setObject:[NSNull null] forKey:kW3CMediaFormatCodecs];
+        [formatData setObject:[NSNumber numberWithInt:0] forKey:kW3CMediaFormatBitrate];
+        [formatData setObject:[NSNumber numberWithInt:0] forKey:kW3CMediaFormatHeight];
+        [formatData setObject:[NSNumber numberWithInt:0] forKey:kW3CMediaFormatWidth];
+        [formatData setObject:[NSNumber numberWithInt:0] forKey:kW3CMediaFormatDuration];
+
+        if (([mimeType rangeOfString:@"video/"].location != NSNotFound) && (NSClassFromString(@"AVURLAsset") != nil)) {
+            NSURL* movieURL = [NSURL fileURLWithPath:fullPath];
+            AVURLAsset* movieAsset = [[AVURLAsset alloc] initWithURL:movieURL options:nil];
+            CMTime duration = [movieAsset duration];
+            [formatData setObject:[NSNumber numberWithFloat:CMTimeGetSeconds(duration)]  forKey:kW3CMediaFormatDuration];
+
+            NSArray* allVideoTracks = [movieAsset tracksWithMediaType:AVMediaTypeVideo];
+            if ([allVideoTracks count] > 0) {
+                AVAssetTrack* track = [[movieAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
+                CGSize size = [track naturalSize];
+
+                [formatData setObject:[NSNumber numberWithFloat:size.height] forKey:kW3CMediaFormatHeight];
+                [formatData setObject:[NSNumber numberWithFloat:size.width] forKey:kW3CMediaFormatWidth];
+            } else {
+                NSLog(@"No video tracks found for %@", fullPath);
+            }
+        }
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:formatData];
+    }
+    if (bError) {
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageToErrorObject:errorCode];
+    }
+    if (result) {
+        [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+    }
 }
 
 - (NSDictionary*)getMediaDictionaryFromPath:(NSString*)fullPath ofType:(NSString*)type {
