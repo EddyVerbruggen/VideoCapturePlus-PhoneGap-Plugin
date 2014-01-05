@@ -44,7 +44,7 @@
 
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="VideoCapturePlus">
-        <param name="android-package" value="nl.xservices.plugins.VideoCapturePlus" />
+        <param name="android-package" value="nl.xservices.plugins.videocaptureplus.VideoCapturePlus" />
       </feature>
     </config-file>
 
