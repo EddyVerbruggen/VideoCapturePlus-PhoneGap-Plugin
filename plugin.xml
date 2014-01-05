@@ -7,8 +7,10 @@
   <name>VideoCapturePlus</name>
 
   <description>
-    This plugin allows you to record video's just like the default Capture plugin,
-    but with added features like HD recording and a custom recording overlay.
+    If you want HD video recording, starting with the front camera by default, or
+    use an (transparent PNG) overlay during recording (iOS only feature)? Look no further!
+    All options of the default plugin are available as well, so you can still set a
+    duration limit etc.
   </description>
 
   <license>MIT</license>

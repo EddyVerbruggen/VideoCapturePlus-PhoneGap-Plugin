@@ -31,13 +31,13 @@ Before recording, portrait mode (the 'Please rotate' text is part of the [overla
 ![ScreenShot](screenshots/screenshot-before-recording-portrait.png)
 
 During recording, landscape mode
-![ScreenShot](https://raw.github.com/EddyVerbruggen/VideoCapturePlus-PhoneGap-Plugin/master/screenshot-during-recording-landscape.png)
+![ScreenShot](screenshots/screenshot-during-recording-landscape.png)
 
 Reviewing the recording, portrait mode
-![ScreenShot](https://raw.github.com/EddyVerbruggen/VideoCapturePlus-PhoneGap-Plugin/master/screenshot-reviewing-recording-landscape.png)
+![ScreenShot](screenshots/screenshot-reviewing-recording-landscape.png)
 
 After recording you can extract the metadata, [see the demo folder for this example](https://github.com/EddyVerbruggen/VideoCapturePlus-PhoneGap-Plugin/tree/master/demo)
-![ScreenShot](https://raw.github.com/EddyVerbruggen/VideoCapturePlus-PhoneGap-Plugin/master/screenshot-after-recording.png)
+![ScreenShot](screenshots/screenshot-after-recording.png)
 
 ## 3. Installation
 
