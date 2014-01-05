@@ -54,7 +54,6 @@
     </config-file>
 
     <source-file src="src/android/nl/xservices/plugins/VideoCapturePlus.java" target-dir="src/nl/xservices/plugins" />
-    <!-- TODO required? -->
     <source-file src="src/android/nl/xservices/plugins/FileHelper.java" target-dir="src/nl/xservices/plugins" />
   </platform>
 
