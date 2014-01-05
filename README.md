@@ -27,19 +27,19 @@ by [Eddy Verbruggen](http://www.x-services.nl/blog)
 
 ## 2. Screenshots
 
-Before recording, portrait mode (the 'Please rotate' text is part of the [overlay png file](https://github.com/EddyVerbruggen/VideoCapturePlus-PhoneGap-Plugin/blob/master/demo/img/cameraoverlays/overlay-iPhone-portrait.png))
+Before recording, portrait mode (the 'Please rotate' text is part of the [overlay png file](demo/img/cameraoverlays/overlay-iPhone-portrait.png)):
 
 ![ScreenShot](screenshots/screenshot-before-recording-portrait.png)
 
-During recording, landscape mode
+During recording, landscape mode:
 
 ![ScreenShot](screenshots/screenshot-during-recording-landscape.png)
 
-Reviewing the recording, portrait mode
+Reviewing the recording, portrait mode:
 
 ![ScreenShot](screenshots/screenshot-reviewing-recording-landscape.png)
 
-After recording you can extract the metadata, [see the demo folder for this example](https://github.com/EddyVerbruggen/VideoCapturePlus-PhoneGap-Plugin/tree/master/demo)
+After recording you can extract the metadata, [see the demo folder for the code of this example](demo):
 ![ScreenShot](screenshots/screenshot-after-recording.png)
 
 ## 3. Installation
@@ -73,18 +73,17 @@ VideoCapturePlus.js is brought in automatically. There is no need to change or a
 ```xml
 <!-- for Android -->
 <feature name="VideoCapturePlus">
-  <param name="android-package" value="nl.xservices.plugins.VideoCapturePlus" />
+  <param name="android-package" value="nl.xservices.plugins.videocaptureplus.VideoCapturePlus" />
 </feature>
 ```
 
-For Android, images from the internet are only shareable with this permission added to `AndroidManifest.xml`:
+For Android, add these to your `AndroidManifest.xml`:
 ```xml
-<config-file target="AndroidManifest.xml" parent="/manifest">
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-</config-file>
+<uses-permission android:name="android.permission.RECORD_VIDEO"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 ```
 
-For iOS, you'll need to add the `Social.framework` to your project.
+For iOS, you'll need to add the `CoreGraphics.framework` and `MobileCoreServices.framework` to your project.
 
 2\. Grab a copy of VideoCapturePlus.js, add it to your project and reference it in `index.html`:
 ```html
@@ -95,14 +94,11 @@ For iOS, you'll need to add the `Social.framework` to your project.
 
 iOS: Copy `VideoCapturePlus.h` and `VideoCapturePlus.m` to `platforms/ios/<ProjectName>/Plugins`
 
-Android: Copy `VideoCapturePlus.java` to `platforms/android/src/nl/xservices/plugins` (create the folders)
+Android: Copy `VideoCapturePlus.java` and `FileHelper.java` to `platforms/android/src/nl/xservices/plugins/videocaptureplus` (create the folders)
 
 ### PhoneGap Build
 
-VideoCapturePlus works with PhoneGap build too! Version 3.0 of this plugin is compatible with PhoneGap 3.0.0 and up.
-Use an older version of this plugin if you target PhoneGap < 3.0.0.
-
-Just add the following xml to your `config.xml` to always use the latest version of this plugin:
+VideoCapturePlus is pending approval at [PhoneGap Build](http://build.phonegap.com). Once it's approved, just add the following xml to your `config.xml` to always use the latest version of this plugin:
 ```xml
 <gap:plugin name="nl.x-services.plugins.videocaptureplus" />
 ```
@@ -114,19 +110,22 @@ or to use this exact version:
 VideoCapturePlus.js is brought in automatically. There is no need to change or add anything in your html.
 
 ## 4. Usage
-You can share text, a subject (in case the user selects the email application), (any type and location of) image, and a link.
-However, what exactly gets shared, depends on the application the user chooses to complete the action. A few examples:
-- Mail: message, subject, image.
-- Twitter: message, image, link (which is automatically shortened).
-- Google+ / Hangouts: message, subject, link
-- Facebook iOS: message, image, link.
-- Facebook Android: sharing a message is not possible. Sharing links and images is, but a description can not be prefilled.
-
-Here are some examples you can copy-paste to test the various combinations:
-```html
-<button onclick="window.plugins.socialsharing.share('Message only')">message only</button>
+See the [demo project](demo) for all details, but the most interesting part is this:
+```javascript
+  window.plugins.videocaptureplus.captureVideo(
+      captureSuccess, // your success callback
+      captureError,   // your error callback
+      {
+        limit: 1, // the nr of videos to record, default 1 (on iOS always 1)
+        duration: duration, // max duration in seconds, default 0, which is 'forever'
+        highquality: highquality, // set to true to override the default low quality setting
+        frontcamera: frontcamera, // set to true to override the default backfacing camera setting
+        // you'll want to sniff the useragent/device and pass the best overlay based on that.. assuming iphone here
+        portraitOverlay: 'www/img/cameraoverlays/overlay-iPhone-portrait.png', // put the png in your www folder
+        landscapeOverlay: 'www/img/cameraoverlays/overlay-iPhone-landscape.png' // not passing an overlay means no image is shown for the landscape orientation
+      }
+  );
 ```
-
 
 ## 5. CREDITS ##
 
