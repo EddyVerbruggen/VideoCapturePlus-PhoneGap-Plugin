@@ -28,12 +28,15 @@ by [Eddy Verbruggen](http://www.x-services.nl/blog)
 ## 2. Screenshots
 
 Before recording, portrait mode (the 'Please rotate' text is part of the [overlay png file](https://github.com/EddyVerbruggen/VideoCapturePlus-PhoneGap-Plugin/blob/master/demo/img/cameraoverlays/overlay-iPhone-portrait.png))
+
 ![ScreenShot](screenshots/screenshot-before-recording-portrait.png)
 
 During recording, landscape mode
+
 ![ScreenShot](screenshots/screenshot-during-recording-landscape.png)
 
 Reviewing the recording, portrait mode
+
 ![ScreenShot](screenshots/screenshot-reviewing-recording-landscape.png)
 
 After recording you can extract the metadata, [see the demo folder for this example](https://github.com/EddyVerbruggen/VideoCapturePlus-PhoneGap-Plugin/tree/master/demo)
