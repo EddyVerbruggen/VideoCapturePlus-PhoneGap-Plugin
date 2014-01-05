@@ -53,8 +53,8 @@
       <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     </config-file>
 
-    <source-file src="src/android/nl/xservices/plugins/VideoCapturePlus.java" target-dir="src/nl/xservices/plugins" />
-    <source-file src="src/android/nl/xservices/plugins/FileHelper.java" target-dir="src/nl/xservices/plugins" />
+    <source-file src="src/android/nl/xservices/plugins/videocaptureplus/VideoCapturePlus.java" target-dir="src/nl/xservices/plugins/videocaptureplus" />
+    <source-file src="src/android/nl/xservices/plugins/videocaptureplus/FileHelper.java" target-dir="src/nl/xservices/plugins/videocaptureplus" />
   </platform>
 
 </plugin>

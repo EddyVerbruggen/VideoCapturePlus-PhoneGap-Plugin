@@ -1,4 +1,4 @@
-package org.apache.cordova.mediacapture;
+package nl.xservices.plugins.videocaptureplus;
 
 import android.app.Activity;
 import android.content.ContentResolver;
