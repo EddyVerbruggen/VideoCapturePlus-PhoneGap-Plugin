@@ -40,6 +40,7 @@ Reviewing the recording, portrait mode:
 ![ScreenShot](screenshots/screenshot-reviewing-recording-landscape.png)
 
 After recording you can extract the metadata, [see the demo folder for the code of this example](demo):
+
 ![ScreenShot](screenshots/screenshot-after-recording.png)
 
 ## 3. Installation
