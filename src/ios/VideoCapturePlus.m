@@ -390,4 +390,19 @@
     pickerController = nil;
 }
 
+- (void)imagePickerControllerDidCancel:(UIImagePickerController*)picker {
+    CDVImagePicker* cameraPicker = (CDVImagePicker*)picker;
+    NSString* callbackId = cameraPicker.callbackId;
+    
+    if ([picker respondsToSelector:@selector(presentingViewController)]) {
+        [[picker presentingViewController] dismissModalViewControllerAnimated:YES];
+    } else {
+        [[picker parentViewController] dismissModalViewControllerAnimated:YES];
+    }
+    
+    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageToErrorObject:CAPTURE_NO_MEDIA_FILES];
+    [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+    pickerController = nil;
+}
+
 @end
