@@ -136,6 +136,9 @@ public class VideoCapturePlus extends CordovaPlugin {
 
     if (highquality) {
       intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+    } else {
+      // If high quality set to false, force low quality for devices that default to high quality
+      intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
     }
 
     if (frontcamera) {
