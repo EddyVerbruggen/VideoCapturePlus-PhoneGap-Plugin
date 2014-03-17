@@ -7,7 +7,7 @@
 #define kW3CMediaFormatBitrate @"bitrate"
 #define kW3CMediaFormatDuration @"duration"
 
-@implementation CDVImagePicker
+@implementation CDVImagePickerPlus
 
 @synthesize callbackId;
 
@@ -149,7 +149,7 @@
 
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         // there is a camera, it is available, make sure it can do movies
-        pickerController = [[CDVImagePicker alloc] init];
+        pickerController = [[CDVImagePickerPlus alloc] init];
         
         NSArray* types = nil;
         if ([UIImagePickerController respondsToSelector:@selector(availableMediaTypesForSourceType:)]) {
@@ -222,7 +222,7 @@
             // pickerController.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
         }
         
-        // CDVImagePicker specific property
+        // CDVImagePickerPlus specific property
         pickerController.callbackId = callbackId;
         
         SEL selector = NSSelectorFromString(@"presentViewController:animated:completion:");
@@ -369,7 +369,7 @@
  *      size
  */
 - (void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary*)info {
-    CDVImagePicker* cameraPicker = (CDVImagePicker*)picker;
+    CDVImagePickerPlus* cameraPicker = (CDVImagePickerPlus*)picker;
     NSString* callbackId = cameraPicker.callbackId;
     
     if ([picker respondsToSelector:@selector(presentingViewController)]) {
@@ -391,7 +391,7 @@
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController*)picker {
-    CDVImagePicker* cameraPicker = (CDVImagePicker*)picker;
+    CDVImagePickerPlus* cameraPicker = (CDVImagePickerPlus*)picker;
     NSString* callbackId = cameraPicker.callbackId;
     
     if ([picker respondsToSelector:@selector(presentingViewController)]) {

@@ -13,7 +13,7 @@ enum CDVCaptureError {
 };
 typedef NSUInteger CDVCaptureError;
 
-@interface CDVImagePicker : UIImagePickerController {
+@interface CDVImagePickerPlus : UIImagePickerController {
 }
 @property (copy)   NSString* callbackId;
 
@@ -21,7 +21,7 @@ typedef NSUInteger CDVCaptureError;
 
 @interface VideoCapturePlus : CDVPlugin <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
-    CDVImagePicker* pickerController;
+    CDVImagePickerPlus* pickerController;
     BOOL inUse;
     NSTimer* timer;
 	AVCaptureSession *CaptureSession;
