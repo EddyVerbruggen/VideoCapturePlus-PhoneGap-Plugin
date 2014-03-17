@@ -45,6 +45,10 @@ After recording you can extract the metadata, [see the demo folder for the code 
 
 ## 3. Installation
 
+
+IMPORTANT NOTE for plugin version < 1.2: if you currently use the org.apache.cordova.media-capture plugin, remove it (otherwise your build will fail).
+
+
 ### Automatically (CLI / Plugman)
 VideoCapturePlus is compatible with [Cordova Plugman](https://github.com/apache/cordova-plugman), compatible with [PhoneGap 3.0 CLI](http://docs.phonegap.com/en/3.0.0/guide_cli_index.md.html#The%20Command-line%20Interface_add_features), here's how it works with the CLI:
 

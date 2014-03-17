@@ -266,6 +266,27 @@
     return [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:fileArray];
 }
 
+- (NSString*)getMimeTypeFromFullPath:(NSString*)fullPath {
+    NSString* mimeType = nil;
+    
+    if (fullPath) {
+        CFStringRef typeId = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)[fullPath pathExtension], NULL);
+        if (typeId) {
+            mimeType = (__bridge_transfer NSString*)UTTypeCopyPreferredTagWithClass(typeId, kUTTagClassMIMEType);
+            if (!mimeType) {
+                // special case for m4a
+                if ([(__bridge NSString*)typeId rangeOfString : @"m4a-audio"].location != NSNotFound) {
+                    mimeType = @"audio/mp4";
+                } else if ([[fullPath pathExtension] rangeOfString:@"wav"].location != NSNotFound) {
+                    mimeType = @"audio/wav";
+                }
+            }
+            CFRelease(typeId);
+        }
+    }
+    return mimeType;
+}
+
 - (void)getFormatData:(CDVInvokedUrlCommand*)command {
     NSString* callbackId = command.callbackId;
     // existence of fullPath checked on JS side
@@ -282,16 +303,11 @@
 
     if (!mimeType || [mimeType isKindOfClass:[NSNull class]]) {
         // try to determine mime type if not provided
-        id command = [self.commandDelegate getCommandInstance:@"File"];
-        bError = !([command isKindOfClass:[CDVFile class]]);
-        if (!bError) {
-            CDVFile* cdvFile = (CDVFile*)command;
-            mimeType = [cdvFile getMimeTypeFromPath:fullPath];
-            if (!mimeType) {
-                // can't do much without mimeType, return error
-                bError = YES;
-                errorCode = CAPTURE_INVALID_ARGUMENT;
-            }
+        mimeType = [self getMimeTypeFromFullPath:fullPath];
+        if (!mimeType) {
+            // can't do much without mimeType, return error
+            bError = YES;
+            errorCode = CAPTURE_INVALID_ARGUMENT;
         }
     }
     if (!bError) {
@@ -338,12 +354,8 @@
     [fileDict setObject:fullPath forKey:@"fullPath"];
     // determine type
     if (!type) {
-        id command = [self.commandDelegate getCommandInstance:@"File"];
-        if ([command isKindOfClass:[CDVFile class]]) {
-            CDVFile* cdvFile = (CDVFile*)command;
-            NSString* mimeType = [cdvFile getMimeTypeFromPath:fullPath];
-            [fileDict setObject:(mimeType != nil ? (NSObject*)mimeType : [NSNull null]) forKey:@"type"];
-        }
+        NSString* mimeType = [self getMimeTypeFromFullPath:fullPath];
+        [fileDict setObject:(mimeType != nil ? (NSObject*)mimeType : [NSNull null]) forKey:@"type"];
     }
     NSDictionary* fileAttrs = [fileMgr attributesOfItemAtPath:fullPath error:nil];
     [fileDict setObject:[NSNumber numberWithUnsignedLongLong:[fileAttrs fileSize]] forKey:@"size"];
