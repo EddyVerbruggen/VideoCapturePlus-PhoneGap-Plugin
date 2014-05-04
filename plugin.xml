@@ -19,8 +19,8 @@
     <engine name="cordova" version=">=3.0.0"/>
   </engines>
 
-  <js-module src="www/VideoCapturePlus.js" name="VideoCapturePlus">
-    <clobbers target="window.plugins.videocaptureplus" />
+  <js-module src="www/VideoCapturePlus.js" name="VideoCapturePlusOverlay">
+    <clobbers target="window.plugins.videocaptureplusOverlay" />
   </js-module>
 
   <!-- ios -->
