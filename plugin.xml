@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        id="nl.x-services.plugins.videocaptureplus"
-        version="1.2">
+        id="nl.x-services.plugins.videocaptureplusoverlay"
+        version="1">
 
-  <name>VideoCapturePlus</name>
+  <name>VideoCapturePlusOverlay</name>
 
   <description>
     If you want HD video recording, starting with the front camera by default, or
