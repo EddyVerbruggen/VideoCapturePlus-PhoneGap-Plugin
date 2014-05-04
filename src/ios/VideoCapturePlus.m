@@ -196,17 +196,27 @@
             pickerController.delegate = self;
             [self alignOverlayDimensionsWithOrientation];
 
-            /*
-             // this works btw, for adding a custom label
-             CGRect labelFrame = CGRectMake(pickerController.cameraOverlayView.frame.origin.x + pickerController.cameraOverlayView.frame.size.width/2, pickerController.cameraOverlayView.frame.origin.y+10, 75, 42);
-             self.stopwatchLabel = [[UILabel alloc] initWithFrame:labelFrame];
-             self.stopwatchLabel.textColor = [UIColor whiteColor];
-             self.stopwatchLabel.backgroundColor = [UIColor clearColor];
-             self.stopwatchLabel.text = @"00:00";
-             //               self.pauseRecord = YES;         //assign video recording to paused
-             //             self.pauseRecordTime = [NSNumber numberWithInteger:0];       //assign current timer value to 0
-             [pickerController.cameraOverlayView addSubview:self.stopwatchLabel];
-             */
+
+
+
+			
+			
+
+			CGRect labelFrame = CGRectMake(10,10,300,200);
+			
+			self.overlayBox = [[UILabel alloc] initWithFrame:labelFrame];
+			self.overlayBox.textColor = [UIColor colorWithRed:3/255.0f green:77/255.0f blue:31/255.0f alpha:1.0f];
+			self.overlayBox.backgroundColor = [UIColor colorWithRed:52/255.0f green:1/255.0f blue:6/255.0f alpha:0.7f];
+			self.overlayBox.font=[UIFont systemFontOfSize:14];
+			self.overlayBox.lineBreakMode = NSLineBreakByWordWrapping;
+			self.overlayBox.alpha = 0.90;
+			
+			NSString* overlayText  = [options objectForKey:@"overlayText"];
+			self.overlayBox.text = overlayText; 
+			
+			[pickerController.cameraOverlayView addSubview:self.overlayBox];
+			
+			
             
             // trying to add a progressbar to the bottom
             /*
