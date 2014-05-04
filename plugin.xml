@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id="nl.x-services.plugins.videocaptureplusoverlay"
-        version="1.1">
+        version="1.3">
 
   <name>VideoCapturePlusOverlay</name>
 
@@ -19,8 +19,8 @@
     <engine name="cordova" version=">=3.0.0"/>
   </engines>
 
-  <js-module src="www/VideoCapturePlus.js" name="VideoCapturePlusOverlay">
-    <clobbers target="window.plugins.videocaptureplusoverlay" />
+  <js-module src="www/VideoCapturePlus.js" name="VideoCapturePlus">
+    <clobbers target="window.plugins.videocaptureplus" />
   </js-module>
 
   <!-- ios -->
@@ -44,7 +44,7 @@
 
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="VideoCapturePlusOverlay">
-        <param name="android-package" value="nl.xservices.plugins.videocaptureplusoverlay.VideoCapturePlus" />
+        <param name="android-package" value="nl.xservices.plugins.videocaptureplusoverlay.VideoCapturePlusOverlay" />
       </feature>
     </config-file>
 
