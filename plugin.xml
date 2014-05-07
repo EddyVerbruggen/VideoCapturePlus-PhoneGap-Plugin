@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        id="nl.x-services.plugins.videocaptureplusoverlay"
-        version="1.5">
+        id="nl.x-services.plugins.videocaptureplus_overlay"
+        version="1.0.1">
 
-  <name>VideoCapturePlusOverlay</name>
+  <name>VideoCapturePlus</name>
 
   <description>
     If you want HD video recording, starting with the front camera by default, or
@@ -19,16 +19,16 @@
     <engine name="cordova" version=">=3.0.0"/>
   </engines>
 
-  <js-module src="www/VideoCapturePlus.js" name="VideoCapturePlusOverlay">
-    <clobbers target="window.plugins.videocaptureplusOverlay" />
+  <js-module src="www/VideoCapturePlus.js" name="VideoCapturePlus">
+    <clobbers target="window.plugins.videocaptureplus" />
   </js-module>
 
   <!-- ios -->
   <platform name="ios">
 
     <config-file target="config.xml" parent="/*">
-      <feature name="VideoCapturePlusOverlay">
-        <param name="ios-package" value="VideoCapturePlusOverlay"/>
+      <feature name="VideoCapturePlus">
+        <param name="ios-package" value="VideoCapturePlus"/>
       </feature>
     </config-file>
 
@@ -43,8 +43,8 @@
   <platform name="android">
 
     <config-file target="res/xml/config.xml" parent="/*">
-      <feature name="VideoCapturePlusOverlay">
-        <param name="android-package" value="nl.xservices.plugins.videocaptureplusoverlay.VideoCapturePlusOverlay" />
+      <feature name="VideoCapturePlus">
+        <param name="android-package" value="nl.xservices.plugins.videocaptureplus.VideoCapturePlus" />
       </feature>
     </config-file>
 
@@ -53,8 +53,8 @@
       <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     </config-file>
 
-    <source-file src="src/android/nl/xservices/plugins/videocaptureplusoverlay/VideoCapturePlus.java" target-dir="src/nl/xservices/plugins/videocaptureplusoverlay" />
-    <source-file src="src/android/nl/xservices/plugins/videocaptureplusoverlay/FileHelper.java" target-dir="src/nl/xservices/plugins/videocaptureplusoverlay" />
+    <source-file src="src/android/nl/xservices/plugins/videocaptureplus/VideoCapturePlus.java" target-dir="src/nl/xservices/plugins/videocaptureplus" />
+    <source-file src="src/android/nl/xservices/plugins/videocaptureplus/FileHelper.java" target-dir="src/nl/xservices/plugins/videocaptureplus" />
   </platform>
 
 </plugin>
