@@ -198,19 +198,19 @@
 
 
 
-
-			
-			
-
-			CGRect labelFrame = CGRectMake(10,10,300,200);
+			CGRect labelFrame = CGRectMake(10,50,CGRectGetWidth(pickerController.view.frame) - 20,140);
 			
 			self.overlayBox = [[UILabel alloc] initWithFrame:labelFrame];
-			self.overlayBox.textColor = [UIColor colorWithRed:3/255.0f green:77/255.0f blue:31/255.0f alpha:1.0f];
-			self.overlayBox.backgroundColor = [UIColor colorWithRed:52/255.0f green:1/255.0f blue:6/255.0f alpha:0.7f];
-			self.overlayBox.font=[UIFont systemFontOfSize:14];
+            
+			self.overlayBox.textColor = [UIColor colorWithRed:3/255.0f green:211/255.0f blue:255/255.0f alpha:1.0f];
+			self.overlayBox.backgroundColor = [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.7f];
+			self.overlayBox.font = [UIFont systemFontOfSize:16];
 			self.overlayBox.lineBreakMode = NSLineBreakByWordWrapping;
+            self.overlayBox.numberOfLines = 10;
 			self.overlayBox.alpha = 0.90;
-			
+            
+            self.overlayBox.textAlignment = UITextAlignmentCenter;
+            
 			NSString* overlayText  = [options objectForKey:@"overlayText"];
 			self.overlayBox.text = overlayText; 
 			
