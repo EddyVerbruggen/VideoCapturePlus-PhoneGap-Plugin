@@ -145,6 +145,7 @@
     BOOL frontcamera    = [[options objectForKey:@"frontcamera"] boolValue];
     portraitOverlay = [self getImage:[options objectForKey:@"portraitOverlay"]];
     landscapeOverlay = [self getImage:[options objectForKey:@"landscapeOverlay"]];
+    NSString* overlayText  = [options objectForKey:@"overlayText"];
     NSString* mediaType = nil;
 
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -198,24 +199,24 @@
 
 
 
-			CGRect labelFrame = CGRectMake(10,50,CGRectGetWidth(pickerController.view.frame) - 20,140);
-			
-			self.overlayBox = [[UILabel alloc] initWithFrame:labelFrame];
-            
-			self.overlayBox.textColor = [UIColor colorWithRed:3/255.0f green:211/255.0f blue:255/255.0f alpha:1.0f];
-			self.overlayBox.backgroundColor = [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.7f];
-			self.overlayBox.font = [UIFont systemFontOfSize:16];
-			self.overlayBox.lineBreakMode = NSLineBreakByWordWrapping;
-            self.overlayBox.numberOfLines = 10;
-			self.overlayBox.alpha = 0.90;
-            
-            self.overlayBox.textAlignment = UITextAlignmentCenter;
-            
-			NSString* overlayText  = [options objectForKey:@"overlayText"];
-			self.overlayBox.text = overlayText; 
-			
-			[pickerController.cameraOverlayView addSubview:self.overlayBox];
-			
+			if(overlayText != nil) {
+                CGRect labelFrame = CGRectMake(10, 50, CGRectGetWidth(pickerController.view.frame) - 20, 140);
+                
+                self.overlayBox = [[UILabel alloc] initWithFrame:labelFrame];
+                
+                self.overlayBox.textColor = [UIColor colorWithRed:3/255.0f green:211/255.0f blue:255/255.0f alpha:1.0f];
+                self.overlayBox.backgroundColor = [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.7f];
+                self.overlayBox.font = [UIFont systemFontOfSize:16];
+                self.overlayBox.lineBreakMode = NSLineBreakByWordWrapping;
+                self.overlayBox.numberOfLines = 10;
+                self.overlayBox.alpha = 0.90;
+                
+                self.overlayBox.textAlignment = UITextAlignmentCenter;
+                
+                self.overlayBox.text = overlayText;
+                
+                [pickerController.cameraOverlayView addSubview:self.overlayBox];
+            }
 			
             
             // trying to add a progressbar to the bottom
