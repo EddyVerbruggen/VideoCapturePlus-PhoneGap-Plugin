@@ -127,7 +127,8 @@ See the [demo project](demo) for all details, but the most interesting part is t
         frontcamera: frontcamera, // set to true to override the default backfacing camera setting
         // you'll want to sniff the useragent/device and pass the best overlay based on that.. assuming iphone here
         portraitOverlay: 'www/img/cameraoverlays/overlay-iPhone-portrait.png', // put the png in your www folder
-        landscapeOverlay: 'www/img/cameraoverlays/overlay-iPhone-landscape.png' // not passing an overlay means no image is shown for the landscape orientation
+        landscapeOverlay: 'www/img/cameraoverlays/overlay-iPhone-landscape.png', // not passing an overlay means no image is shown for the landscape orientation
+        overlayText: 'Please rotate to landscape for the best result' // iOS only
       }
   );
 ```
@@ -135,6 +136,8 @@ See the [demo project](demo) for all details, but the most interesting part is t
 ## 5. CREDITS ##
 
 Cordova, for [the original plugin repository](https://github.com/apache/cordova-plugin-media-capture), which is the basis for this one.
+
+(James Gillmore)[https://github.com/faceyspacey] for the overlayText feature on iOS.
 
 ## 6. License
 

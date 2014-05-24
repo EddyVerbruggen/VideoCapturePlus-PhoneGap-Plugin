@@ -200,7 +200,9 @@
 
 
 			if(overlayText != nil) {
-                CGRect labelFrame = CGRectMake(10, 50, CGRectGetWidth(pickerController.view.frame) - 20, 140);
+                NSUInteger txtLength = overlayText.length;
+                
+                CGRect labelFrame = CGRectMake(10, 40, CGRectGetWidth(pickerController.view.frame) - 20, 40 + (20*(txtLength/25)));
                 
                 self.overlayBox = [[UILabel alloc] initWithFrame:labelFrame];
                 
