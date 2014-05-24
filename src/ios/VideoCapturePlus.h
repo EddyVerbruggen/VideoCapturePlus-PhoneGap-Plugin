@@ -30,6 +30,7 @@ typedef NSUInteger CDVCaptureError;
 }
 @property BOOL inUse;
 @property (nonatomic, strong) NSTimer* timer;
+@property (strong, nonatomic) UILabel *overlayBox;
 @property (strong, nonatomic) UILabel *stopwatchLabel;
 @property (strong, nonatomic) UILabel *progressbarLabel;
 - (void)captureVideo:(CDVInvokedUrlCommand*)command;
