@@ -217,7 +217,7 @@
                 
                 self.overlayBox.text = overlayText;
                 
-                [pickerController.cameraOverlayView addSubview:self.overlayBox];
+                [pickerController.view addSubview:self.overlayBox];
             }
 			
             
