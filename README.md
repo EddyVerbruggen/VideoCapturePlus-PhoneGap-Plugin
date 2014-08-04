@@ -124,7 +124,7 @@ See the [demo project](demo) for all details, but the most interesting part is t
         limit: 1, // the nr of videos to record, default 1 (on iOS always 1)
         duration: duration, // max duration in seconds, default 0, which is 'forever'
         highquality: highquality, // set to true to override the default low quality setting
-        frontcamera: frontcamera, // set to true to override the default backfacing camera setting
+        frontcamera: frontcamera, // set to true to override the default backfacing camera setting. iOS: works fine, Android: YMMV (#18)
         // you'll want to sniff the useragent/device and pass the best overlay based on that.. assuming iphone here
         portraitOverlay: 'www/img/cameraoverlays/overlay-iPhone-portrait.png', // put the png in your www folder
         landscapeOverlay: 'www/img/cameraoverlays/overlay-iPhone-landscape.png', // not passing an overlay means no image is shown for the landscape orientation
