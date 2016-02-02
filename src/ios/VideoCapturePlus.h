@@ -12,6 +12,17 @@ enum CDVCaptureError {
 };
 typedef NSUInteger CDVCaptureError;
 
+typedef struct {
+    BOOL iPhone;
+    BOOL iPad;
+    BOOL iPhone4;
+    BOOL iPhone5;
+    BOOL iPhone6;
+    BOOL iPhone6Plus;
+    BOOL retina;
+    
+} CDV_iOSDevice;
+
 @interface CDVImagePickerPlus : UIImagePickerController {
 }
 @property (copy)   NSString* callbackId;
@@ -23,8 +34,8 @@ typedef NSUInteger CDVCaptureError;
     CDVImagePickerPlus* pickerController;
     BOOL inUse;
     NSTimer* timer;
-	AVCaptureSession *CaptureSession;
-	AVCaptureMovieFileOutput *MovieFileOutput;
+    AVCaptureSession *CaptureSession;
+    AVCaptureMovieFileOutput *MovieFileOutput;
     UIImage* portraitOverlay;
     UIImage* landscapeOverlay;
 }
