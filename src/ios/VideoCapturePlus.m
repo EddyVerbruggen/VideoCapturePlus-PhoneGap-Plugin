@@ -44,13 +44,9 @@
 @implementation VideoCapturePlus
 @synthesize inUse, timer;
 
-- (id)initWithWebView:(UIWebView*)theWebView
+- (void)pluginInitialize
 {
-    self = (VideoCapturePlus*)[super initWithWebView:theWebView];
-    if (self) {
-        self.inUse = NO;
-    }
-    return self;
+    self.inUse = NO;
 }
 
 -(void)rotateOverlayIfNeeded:(UIView*) overlayView {
@@ -100,7 +96,8 @@
         float width = CGRectGetWidth(pickerController.view.frame);
         float height = CGRectGetHeight(pickerController.view.frame);
 
-        if (CDV_IsIPad()) {
+        CDV_iOSDevice device = [self getCurrentDevice];
+        if (device.iPad || device.iPhone6Plus) {
             if (UIDeviceOrientationIsLandscape(deviceOrientation)) {
                 [overlayView setCenter:CGPointMake(height/2,width/2)];
             } else {
@@ -199,7 +196,7 @@
 
 
 
-			if(overlayText != nil) {
+            if(overlayText != nil) {
                 NSUInteger txtLength = overlayText.length;
                 
                 CGRect labelFrame = CGRectMake(10, 40, CGRectGetWidth(pickerController.view.frame) - 20, 40 + (20*(txtLength/25)));
@@ -216,7 +213,7 @@
                 self.overlayBox.text = overlayText;
                 [pickerController.view addSubview:self.overlayBox];
             }
-			
+            
             
             // trying to add a progressbar to the bottom
             /*
@@ -418,6 +415,30 @@
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageToErrorObject:CAPTURE_NO_MEDIA_FILES];
     [self.commandDelegate sendPluginResult:result callbackId:callbackId];
     pickerController = nil;
+}
+
+- (CDV_iOSDevice) getCurrentDevice
+{
+    CDV_iOSDevice device;
+    
+    UIScreen* mainScreen = [UIScreen mainScreen];
+    CGFloat mainScreenHeight = mainScreen.bounds.size.height;
+    CGFloat mainScreenWidth = mainScreen.bounds.size.width;
+    
+    int limit = MAX(mainScreenHeight,mainScreenWidth);
+    
+    device.iPad = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+    device.iPhone = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone);
+    device.retina = ([mainScreen scale] == 2.0);
+    device.iPhone4 = (device.iPhone && limit == 480.0);
+    device.iPhone5 = (device.iPhone && limit == 568.0);
+    // note these below is not a true device detect, for example if you are on an
+    // iPhone 6/6+ but the app is scaled it will prob set iPhone5 as true, but
+    // this is appropriate for detecting the runtime screen environment
+    device.iPhone6 = (device.iPhone && limit == 667.0);
+    device.iPhone6Plus = (device.iPhone && limit == 736.0);
+    
+    return device;
 }
 
 @end
