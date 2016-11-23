@@ -84,8 +84,9 @@ VideoCapturePlus.js is brought in automatically. There is no need to change or a
 
 For Android, add these to your `AndroidManifest.xml`:
 ```xml
-<uses-permission android:name="android.permission.RECORD_VIDEO"/>
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.RECORD_AUDIO" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.CAMERA" />
 ```
 
 For iOS, you'll need to add the `CoreGraphics.framework` and `MobileCoreServices.framework` to your project.

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -11,9 +13,13 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.Manifest;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
+import org.apache.cordova.PermissionHelper;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,15 +29,19 @@ import java.io.IOException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.Arrays;
 
 public class VideoCapturePlus extends CordovaPlugin {
 
   private static final String VIDEO_3GPP = "video/3gpp";
   private static final String VIDEO_MP4 = "video/mp4";
 
+  private static final int PERMISSION_DENIED_ERROR = 20;
   private static final int CAPTURE_VIDEO = 2;     // Constant for capture video
   private static final String LOG_TAG = "VideoCapturePlus";
   private static final int CAPTURE_NO_MEDIA_FILES = 3;
+
+  protected final static String[] permissions = { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO };
 
   private CallbackContext callbackContext;        // The callback context from which we were invoked.
   private long limit;                             // the number of pics/vids/clips to take
@@ -62,7 +72,7 @@ public class VideoCapturePlus extends CordovaPlugin {
       callbackContext.success(obj);
       return true;
     } else if (action.equals("captureVideo")) {
-      this.captureVideo(duration, highquality, frontcamera);
+      this.callCaptureVideo(duration, highquality, frontcamera);
     } else {
       return false;
     }
@@ -127,8 +137,46 @@ public class VideoCapturePlus extends CordovaPlugin {
   }
 
   /**
+   * Take a video with the camera.
+   * Permissions checks
+  */
+  private void callCaptureVideo(int duration, boolean highquality, boolean frontcamera) {
+    
+    String[] missingPermissions = determineMissingPermissions();
+
+    if(missingPermissions.length == 0) {
+      captureVideo(duration,highquality,frontcamera);
+    } else {
+      PermissionHelper.requestPermissions(this, CAPTURE_VIDEO, missingPermissions);
+    }
+  }
+  /**
    * Sets up an intent to capture video.  Result handled by onActivityResult()
    */
+  private String[] determineMissingPermissions() {
+    boolean writePermission = PermissionHelper.hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    boolean cameraPermission = PermissionHelper.hasPermission(this, Manifest.permission.CAMERA);
+    boolean recordAudioPermission = PermissionHelper.hasPermission(this, Manifest.permission.RECORD_AUDIO);
+
+    String[] missingPermissions = new String[] {};
+    if (writePermission && !cameraPermission && !recordAudioPermission) {
+      missingPermissions = new String[] {Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO};
+    } else if (writePermission && cameraPermission && !recordAudioPermission) {
+      missingPermissions = new String[] {Manifest.permission.RECORD_AUDIO};
+    } else if (writePermission && !cameraPermission && recordAudioPermission) {
+      missingPermissions = new String[] {Manifest.permission.CAMERA};
+    } else if (!writePermission && cameraPermission && !recordAudioPermission) {
+      missingPermissions = new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO};
+    } else if (!writePermission && !cameraPermission && recordAudioPermission) {
+      missingPermissions = new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
+    } else if (!writePermission && !cameraPermission && !recordAudioPermission) {
+      missingPermissions = permissions;
+    }
+
+    return missingPermissions;
+  }
+
+
   private void captureVideo(int duration, boolean highquality, boolean frontcamera) {
     Intent intent = new Intent(android.provider.MediaStore.ACTION_VIDEO_CAPTURE);
     String videoUri = getVideoContentUriFromFilePath(this.cordova.getActivity(), getTempDirectoryPath());
@@ -179,6 +227,30 @@ public class VideoCapturePlus extends CordovaPlugin {
   }
 
   /**
+   * Called when the user grants permissions that the app needs
+   *
+   * @param requestCode The request code originally supplied to startActivityForResult(),
+   *                    allowing you to identify who this result came from.
+   * @param permissions  List of requested permissions
+   * @param grantResults List of grant results (permissions accepted or denied)
+   */
+  public void onRequestPermissionResult(int requestCode, String[] permissions,
+    int[] grantResults) throws JSONException {
+
+    for (int r : grantResults) {
+      if (r == PackageManager.PERMISSION_DENIED) {
+        this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, PERMISSION_DENIED_ERROR));
+        return;
+      }
+    }
+    switch (requestCode) {
+      case CAPTURE_VIDEO:
+        captureVideo(this.duration, this.highquality, this.frontcamera);
+        break;
+    }
+  }
+
+  /**
    * Called when the video view exits.
    *
    * @param requestCode The request code originally supplied to startActivityForResult(),
@@ -210,7 +282,7 @@ public class VideoCapturePlus extends CordovaPlugin {
             this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, results));
           } else {
             // still need to capture more video clips
-            captureVideo(duration, highquality, frontcamera);
+            callCaptureVideo(duration, highquality, frontcamera);
           }
         }
       }

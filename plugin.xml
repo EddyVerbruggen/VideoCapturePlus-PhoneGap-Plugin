@@ -4,57 +4,74 @@
         id="nl.x-services.plugins.videocaptureplus"
         version="1.3.0">
 
-  <name>VideoCapturePlus</name>
+    <name>VideoCapturePlus</name>
 
-  <description>
-    If you want HD video recording, starting with the front camera by default, or
-    use an (transparent PNG) overlay during recording (iOS only feature)? Look no further!
-    All options of the default plugin are available as well, so you can still set a
-    duration limit etc.
-  </description>
+    <description>
+        If you want HD video recording, starting with the front camera by default, or
+        use an (transparent PNG) overlay during recording (iOS only feature)? Look no further!
+        All options of the default plugin are available as well, so you can still set a
+        duration limit etc.
+    </description>
 
-  <license>MIT</license>
+    <license>MIT</license>
 
-  <engines>
-    <engine name="cordova" version=">=3.0.0"/>
-  </engines>
+    <engines>
+        <engine name="cordova" version=">=3.0.0"/>
+    </engines>
 
-  <js-module src="www/VideoCapturePlus.js" name="VideoCapturePlus">
-    <clobbers target="window.plugins.videocaptureplus" />
-  </js-module>
+    <dependency id="cordova-plugin-compat" version="^1.1.0" />
 
-  <!-- ios -->
-  <platform name="ios">
+    <js-module src="www/VideoCapturePlus.js" name="VideoCapturePlus">
+        <clobbers target="window.plugins.videocaptureplus"/>
+    </js-module>
 
-    <config-file target="config.xml" parent="/*">
-      <feature name="VideoCapturePlus">
-        <param name="ios-package" value="VideoCapturePlus"/>
-      </feature>
-    </config-file>
+    <!-- ios -->
+    <platform name="ios">
 
-    <header-file src="src/ios/VideoCapturePlus.h"/>
-    <source-file src="src/ios/VideoCapturePlus.m"/>
+        <config-file target="config.xml" parent="/*">
+            <feature name="VideoCapturePlus">
+                <param name="ios-package" value="VideoCapturePlus"/>
+            </feature>
+        </config-file>
 
-    <framework src="CoreGraphics.framework" />
-    <framework src="MobileCoreServices.framework" />
-  </platform>
+        <header-file src="src/ios/VideoCapturePlus.h"/>
+        <source-file src="src/ios/VideoCapturePlus.m"/>
 
-  <!-- android -->
-  <platform name="android">
+        <framework src="CoreGraphics.framework"/>
+        <framework src="MobileCoreServices.framework"/>
+    </platform>
 
-    <config-file target="res/xml/config.xml" parent="/*">
-      <feature name="VideoCapturePlus">
-        <param name="android-package" value="nl.xservices.plugins.videocaptureplus.VideoCapturePlus" />
-      </feature>
-    </config-file>
+    <!-- android -->
+    <platform name="android">
 
-    <config-file target="AndroidManifest.xml" parent="/*">
-      <uses-permission android:name="android.permission.RECORD_VIDEO"/>
-      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    </config-file>
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="VideoCapturePlus">
+                <param name="android-package" value="nl.xservices.plugins.videocaptureplus.VideoCapturePlus"/>
+            </feature>
+        </config-file>
 
-    <source-file src="src/android/nl/xservices/plugins/videocaptureplus/VideoCapturePlus.java" target-dir="src/nl/xservices/plugins/videocaptureplus" />
-    <source-file src="src/android/nl/xservices/plugins/videocaptureplus/FileHelper.java" target-dir="src/nl/xservices/plugins/videocaptureplus" />
-  </platform>
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.RECORD_AUDIO" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.CAMERA" />
+
+            <provider
+                    android:name="android.support.v4.content.FileProvider"
+                    android:authorities="nl.x-services.plugins.videocaptureplus.provider"
+                    android:exported="false"
+                    android:grantUriPermissions="true">
+                <meta-data
+                        android:name="android.support.FILE_PROVIDER_PATHS"
+                        android:resource="@xml/provider_paths"/>
+            </provider>
+
+        </config-file>
+
+        <source-file src="src/android/nl/xservices/plugins/videocaptureplus/VideoCapturePlus.java"
+                     target-dir="src/nl/xservices/plugins/videocaptureplus"/>
+        <source-file src="src/android/nl/xservices/plugins/videocaptureplus/FileHelper.java"
+                     target-dir="src/nl/xservices/plugins/videocaptureplus"/>
+        <source-file src="src/android/nl/xservices/plugins/videocaptureplus/xml/provider_paths.xml" target-dir="res/xml" />
+    </platform>
 
 </plugin>
