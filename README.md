@@ -1,6 +1,6 @@
 # VideoCapturePlus PhoneGap plugin
 
-by [Eddy Verbruggen](http://www.x-services.nl/blog)
+> PR's are welcome, but I'm no longer actively maintaining this plugin.
 
 ## 0. Index
 
