@@ -12,6 +12,10 @@
         All options of the default plugin are available as well, so you can still set a
         duration limit etc.
     </description>
+    <license>MIT</license>
+    <keywords>cordova,media,recorder,video</keywords>
+    <repo>https://github.com/toniton/VideoCapturePlus-PhoneGap-Plugin.git</repo>
+    <issue>https://github.com/EddyVerbruggen/VideoCapturePlus-PhoneGap-Plugin/issues</issue>
 
     <license>MIT</license>
 
