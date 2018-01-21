@@ -11,7 +11,7 @@
   },
   "engines": {
     "cordovaDependencies": {
-      "2.0.0": {
+      "3.0.0": {
         "cordova": ">100"
       }
     }
@@ -28,7 +28,7 @@
     "cordova-android",
     "cordova",
     "video",
-    "player",
+    "recorder",
     "fullscreen"
   ],
   "author": "Eddy Verbruggen",
