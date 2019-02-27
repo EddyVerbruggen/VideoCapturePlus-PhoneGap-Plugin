@@ -169,6 +169,8 @@ public class VideoCapturePlus extends CordovaPlugin {
       missingPermissions = new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO};
     } else if (!writePermission && !cameraPermission && recordAudioPermission) {
       missingPermissions = new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
+	} else if (!writePermission && cameraPermission && recordAudioPermission) {
+	  missingPermissions = new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE};
     } else if (!writePermission && !cameraPermission && !recordAudioPermission) {
       missingPermissions = permissions;
     }
