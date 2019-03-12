@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id="nl.x-services.plugins.videocaptureplus"
-        version="1.3.0">
+        version="1.0.0">
 
     <name>VideoCapturePlus</name>
 
@@ -12,14 +12,16 @@
         All options of the default plugin are available as well, so you can still set a
         duration limit etc.
     </description>
+    <license>MIT</license>
+    <keywords>cordova,media,recorder,video</keywords>
+    <repo>https://github.com/toniton/VideoCapturePlus-PhoneGap-Plugin.git</repo>
+    <issue>https://github.com/EddyVerbruggen/VideoCapturePlus-PhoneGap-Plugin/issues</issue>
 
     <license>MIT</license>
 
     <engines>
         <engine name="cordova" version=">=3.0.0"/>
     </engines>
-
-    <dependency id="cordova-plugin-compat" version="^1.1.0" />
 
     <js-module src="www/VideoCapturePlus.js" name="VideoCapturePlus">
         <clobbers target="window.plugins.videocaptureplus"/>
@@ -54,7 +56,9 @@
             <uses-permission android:name="android.permission.RECORD_AUDIO" />
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.CAMERA" />
+        </config-file>
 
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <provider
                     android:name="android.support.v4.content.FileProvider"
                     android:authorities="nl.x-services.plugins.videocaptureplus.provider"
@@ -64,7 +68,6 @@
                         android:name="android.support.FILE_PROVIDER_PATHS"
                         android:resource="@xml/provider_paths"/>
             </provider>
-
         </config-file>
 
         <source-file src="src/android/nl/xservices/plugins/videocaptureplus/VideoCapturePlus.java"
@@ -75,3 +78,4 @@
     </platform>
 
 </plugin>
+

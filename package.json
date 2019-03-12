@@ -1,0 +1,40 @@
+{
+  "name": "cordova-plugin-video-capture-plus",
+  "version": "1.0.0",
+  "description": "A Codova plugin that simply allows you to record a video in fullscreen mode using front-facing or rear camera.",
+  "cordova": {
+    "id": "cordova-plugin-video-capture-plus",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "3.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EddyVerbruggen/VideoCapturePlus-PhoneGap-Plugin.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova",
+    "video",
+    "recorder",
+    "fullscreen"
+  ],
+  "author": "Eddy Verbruggen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EddyVerbruggen/VideoCapturePlus-PhoneGap-Plugin/issues"
+  },
+  "homepage": "https://github.com/EddyVerbruggen/VideoCapturePlus-PhoneGap-Plugin/blob/master/README.md"
+}
